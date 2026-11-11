@@ -1,0 +1,2 @@
+# Preserve byte-for-byte raw CSVs, including Python csv's RFC-style CRLF endings.
+*.csv -text whitespace=cr-at-eol

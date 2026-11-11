@@ -17,10 +17,10 @@ def run_training(cfg, name, lr, seed, phase, data, device, epochs=None):
     if (folder / 'completed.json').exists():
         import json
         cached = json.loads((folder / 'completed.json').read_text())
-        if cached['config'] != cfg or cached['epochs'] != epochs:
-            raise ValueError('Configuration changed: use a fresh output directory.')
         required = ['best', 'final'] + (['budget'] if cached['budget_available'] else [])
         if all((ROOT / 'checkpoints' / run_id / f'{s}.pt').exists() for s in required):
+            if cached['config'] != cfg or cached['epochs'] != epochs:
+                raise ValueError('Configuration changed: use a fresh output directory.')
             return cached
         # Public clones contain metrics but no large checkpoint files: regenerate them.
     folder.mkdir(parents=True, exist_ok=True)
