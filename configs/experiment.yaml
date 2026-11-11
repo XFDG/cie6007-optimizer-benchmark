@@ -1,0 +1,20 @@
+dataset: FashionMNIST
+split_seed: 2026
+train_size: 50000
+val_size: 10000
+hidden: 256
+batch_size: 128
+epochs: 15
+tune_epochs: 10
+tune_seed: 17
+seeds: [101, 202, 303]
+weight_decay: 0.0001
+aux_lr: 0.001
+threshold: 0.85
+time_budget_s: 5.0
+warmup_steps: 20
+learning_rates:
+  sgd: [0.01, 0.03, 0.1]
+  adam: [0.0003, 0.001, 0.003]
+  adamw: [0.0003, 0.001, 0.003]
+  muon: [0.005, 0.02, 0.05]

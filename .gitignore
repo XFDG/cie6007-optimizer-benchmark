@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+.pytest_cache/
+data/
+logs/
+checkpoints/
+*.pt
+*.pth
+paper/build/
+paper/identity.tex
+submission/report.pdf
+submission/*.zip
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
