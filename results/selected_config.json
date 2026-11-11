@@ -1,0 +1,30 @@
+{
+  "config_sha256": "e982c511fe2e107b3813c21e765383f4356926c8c7f2a9967572dee1f068e7d9",
+  "criterion": "max validation accuracy; tie min loss then min lr",
+  "selected": {
+    "sgd": {
+      "lr": 0.03,
+      "tuning_run": "tune_sgd_lr0.03_seed17",
+      "best_val_accuracy": 0.8833000063896179,
+      "best_val_loss": 0.31706300377845764
+    },
+    "adam": {
+      "lr": 0.001,
+      "tuning_run": "tune_adam_lr0.001_seed17",
+      "best_val_accuracy": 0.8908999562263489,
+      "best_val_loss": 0.3004373610019684
+    },
+    "adamw": {
+      "lr": 0.001,
+      "tuning_run": "tune_adamw_lr0.001_seed17",
+      "best_val_accuracy": 0.8898999691009521,
+      "best_val_loss": 0.29999804496765137
+    },
+    "muon": {
+      "lr": 0.005,
+      "tuning_run": "tune_muon_lr0.005_seed17",
+      "best_val_accuracy": 0.8941999673843384,
+      "best_val_loss": 0.30900466442108154
+    }
+  }
+}

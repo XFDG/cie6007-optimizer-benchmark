@@ -1,0 +1,10 @@
+# CUDA 13 wheels: pip install torch==2.11.0 torchvision==0.26.0 --index-url https://download.pytorch.org/whl/cu130
+# Then: pip install -r requirements.txt
+# CPU-only: use https://download.pytorch.org/whl/cpu for the first command.
+torch==2.11.0
+torchvision==0.26.0
+numpy==2.3.5
+pandas==3.0.1
+matplotlib==3.10.8
+PyYAML==6.0.3
+pytest==8.4.2

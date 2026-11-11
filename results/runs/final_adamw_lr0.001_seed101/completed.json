@@ -1,0 +1,75 @@
+{
+  "run_id": "final_adamw_lr0.001_seed101",
+  "optimizer": "adamw",
+  "lr": 0.001,
+  "seed": 101,
+  "phase": "final",
+  "epochs": 15,
+  "best_val_accuracy": 0.8948999643325806,
+  "best_val_loss": 0.3060482144355774,
+  "best_epoch": 13,
+  "budget_epoch": 6,
+  "budget_available": true,
+  "initial_model_sha256": "e79aebd7176bf5746674690d6e3a3f0d3e7931634f6294b8db058028c08755b6",
+  "warmup_seconds": 0.037554722279310226,
+  "train_seconds": 11.258208068087697,
+  "wall_seconds": 11.307835191488266,
+  "config": {
+    "dataset": "FashionMNIST",
+    "split_seed": 2026,
+    "train_size": 50000,
+    "val_size": 10000,
+    "hidden": 256,
+    "batch_size": 128,
+    "epochs": 15,
+    "tune_epochs": 10,
+    "tune_seed": 17,
+    "seeds": [
+      101,
+      202,
+      303
+    ],
+    "weight_decay": 0.0001,
+    "aux_lr": 0.001,
+    "threshold": 0.85,
+    "time_budget_s": 5.0,
+    "warmup_steps": 20,
+    "learning_rates": {
+      "sgd": [
+        0.01,
+        0.03,
+        0.1
+      ],
+      "adam": [
+        0.0003,
+        0.001,
+        0.003
+      ],
+      "adamw": [
+        0.0003,
+        0.001,
+        0.003
+      ],
+      "muon": [
+        0.005,
+        0.02,
+        0.05
+      ]
+    }
+  },
+  "git_commit": "3a281c26a75fdc8266d62c04390d0858c0578550",
+  "source_sha256": {
+    "configs/experiment.yaml": "e982c511fe2e107b3813c21e765383f4356926c8c7f2a9967572dee1f068e7d9",
+    "scripts/check_environment.py": "15b75e914985cc5e2ca4af7c6ff91edb6eab864fde12779b23dd3f8d39989ab7",
+    "scripts/evaluate_final.py": "bd11917a1d96b7f298757c3a2df51186491b14f1ab55fae49ca1e6ce2a0ee4d2",
+    "scripts/plot_results.py": "cb8fd0d3f28be1dfc83b7e3d0f6bd4a04a42b9327a84e49494a1a964a7baf551",
+    "scripts/run_all.py": "98cb9d6f59164424accdfa78e23abe53809accb79c01bd48b90bad12a91ae39f",
+    "src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/data.py": "38a211ba13babb046c4c99cb989410a8caca33800518e2664ce28c2b27f206c8",
+    "src/evaluate.py": "78589e9b77a93d54c0059e0de17e1c8c0b87dc8d40a0083732eb34e6a394d17f",
+    "src/model.py": "6777a985051c84124e97fb7b2af4bb1738cc5cb9fbbd4c5b2e51d22e6a76405f",
+    "src/optimizers.py": "6f6d68d540c1c22dfde835cb0682edf1205a391b962cc5f6f449b300f4e8e9f7",
+    "src/train.py": "699d9a68365224360ffc68c22215d76bcf7bb0dc0a551740e9be13e14d3bcd8f",
+    "src/utils.py": "6360e8d314b3da0ee195cc26cf5d6b6c8fdd72d4a6e313fe33220a809f3dd796"
+  }
+}

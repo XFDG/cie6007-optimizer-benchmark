@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "tuning_runs": 12,
+  "formal_runs": 12,
+  "epoch_rows": 308,
+  "paired_initialization": true,
+  "balanced_lr_budget": true,
+  "checkpoint_hashes_verified": true,
+  "best_and_budget_selection_verified": true,
+  "summary_recomputed": true,
+  "metrics_sha256": "2f668f644e17a7070b78d5a7453e7d02bdab05b3db97a33f2bea244c39fa6ca1"
+}

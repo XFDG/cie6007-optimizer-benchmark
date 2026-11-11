@@ -25,7 +25,9 @@ def check():
     if torch.cuda.is_available():
         result['gpu'] = torch.cuda.get_device_name(0)
         result['bf16_supported'] = torch.cuda.is_bf16_supported()
-        result['nvidia_smi'] = subprocess.check_output(['nvidia-smi'], text=True)
+        result['gpu_status'] = subprocess.check_output(['nvidia-smi',
+            '--query-gpu=index,name,driver_version,memory.total,utilization.gpu',
+            '--format=csv'], text=True)
     write_json(ROOT / 'results/environment.json', result)
     print(__import__('json').dumps(result, indent=2))
     return result

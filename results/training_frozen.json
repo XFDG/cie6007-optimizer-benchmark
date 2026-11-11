@@ -1,0 +1,17 @@
+{
+  "selected_config_sha256": "fbfce9cd1a92615009ef3d2b143ba7d3b8eae3701ddf8d18998b905a3959fb20",
+  "runs": [
+    "final_adam_lr0.001_seed101",
+    "final_adam_lr0.001_seed202",
+    "final_adam_lr0.001_seed303",
+    "final_adamw_lr0.001_seed101",
+    "final_adamw_lr0.001_seed202",
+    "final_adamw_lr0.001_seed303",
+    "final_muon_lr0.005_seed101",
+    "final_muon_lr0.005_seed202",
+    "final_muon_lr0.005_seed303",
+    "final_sgd_lr0.03_seed101",
+    "final_sgd_lr0.03_seed202",
+    "final_sgd_lr0.03_seed303"
+  ]
+}

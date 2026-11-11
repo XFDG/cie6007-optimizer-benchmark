@@ -1,0 +1,25 @@
+{
+  "python": "3.12.3",
+  "platform": "Linux-5.15.0-94-generic-x86_64-with-glibc2.39",
+  "packages": {
+    "torch": "2.11.0+cu130",
+    "torchvision": "0.26.0+cu130",
+    "triton": "3.6.0",
+    "helion": null,
+    "numpy": "2.3.5",
+    "pandas": "3.0.1",
+    "matplotlib": "3.10.8",
+    "pytest": "8.4.2",
+    "PyYAML": "6.0.3"
+  },
+  "cuda_runtime": "13.0",
+  "cuda_available": true,
+  "muon_signature": "(params: collections.abc.Iterable[torch.Tensor] | collections.abc.Iterable[dict[str, typing.Any]] | collections.abc.Iterable[tuple[str, torch.Tensor]], lr: float = 0.001, weight_decay: float = 0.1, momentum: float = 0.95, nesterov: bool = True, ns_coefficients: tuple[float, float, float] = (3.4445, -4.775, 2.0315), eps: float = 1e-07, ns_steps: int = 5, adjust_lr_fn: str | None = None) -> None",
+  "torch_git_version": "70d99e998b4955e0049d13a98d77ae1b14db1f45",
+  "muon_source_sha256": "20944cb8a44f780fcb1b5c4691fb6dee5089b4851c66e99376f9d84c77247d10",
+  "gpu": "NVIDIA H200",
+  "bf16_supported": true,
+  "driver": "580.105.08",
+  "measurement_gpu": "H200 device 0, no competing GPU-0 process at preflight",
+  "other_gpus": "devices 1\u20133 keep-alive active during measurement"
+}

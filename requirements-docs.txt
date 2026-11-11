@@ -1,0 +1,2 @@
+# Optional structural PDF audit; Tectonic 0.15.0 is a separate executable.
+pypdf==7.0.1

@@ -82,3 +82,23 @@ def test_adam_decay_is_not_adamw():
     make_optimizer(a,'adam',.01,weight_decay=.1).step()
     make_optimizer(b,'adamw',.01,weight_decay=.1).step()
     assert not torch.equal(a.body[0].weight,b.body[0].weight)
+
+
+def test_resume_regenerates_missing_checkpoints(tmp_path, monkeypatch):
+    # A public clone includes metrics but excludes checkpoints. Reproduction must rerun.
+    from src.utils import config
+    monkeypatch.setattr(train, 'ROOT', tmp_path)
+    cfg=config()
+    cfg.update(hidden=16, warmup_steps=1, batch_size=8)
+    seed_all(3)
+    x=torch.rand(16,784); y=torch.arange(16)%10
+    data=(x,y,x[:8],y[:8])
+    metadata=train.run_training(cfg,'adam',.001,3,'smoke',data,'cpu',1)
+    path=tmp_path/'checkpoints'/metadata['run_id']/'final.pt'
+    assert path.exists()
+    path.unlink()
+    repeated=train.run_training(cfg,'adam',.001,3,'smoke',data,'cpu',1)
+    assert path.exists()
+    assert repeated['initial_model_sha256']==metadata['initial_model_sha256']
+    with pytest.raises(ValueError,match='Configuration changed'):
+        train.run_training(dict(cfg,hidden=32),'adam',.001,3,'smoke',data,'cpu',1)

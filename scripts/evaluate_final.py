@@ -26,6 +26,8 @@ def main():
         for selection in ['best','final','budget']:
             path = ROOT/'checkpoints'/run_id/f'{selection}.pt'
             if not path.exists():
+                if selection != 'budget' or meta['budget_available']:
+                    raise FileNotFoundError(f'Reproduce training first: {path}')
                 continue
             model = MLP(cfg['hidden']).to(device)
             model.load_state_dict(torch.load(path, map_location=device, weights_only=True))

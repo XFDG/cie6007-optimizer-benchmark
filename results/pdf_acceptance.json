@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "main_pages": 4,
+  "supplementary_pages": 3,
+  "a4": true,
+  "local_identity_present": true,
+  "public_identity_removed": true,
+  "overfull_boxes": false,
+  "unresolved_references": false,
+  "typography": "10 TeX pt body and code; 9.96 PDF bp is the same physical size"
+}

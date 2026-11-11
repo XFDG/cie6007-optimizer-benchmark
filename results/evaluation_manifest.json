@@ -1,0 +1,5 @@
+{
+  "training_frozen_sha256": "f741845906e218088ee0d8ffafb14708d74919bfebc6b22b45e1c324c9360b12",
+  "evaluations_sha256": "2aaff8e7d745413b07507cc7b5fc7eb1ea93c9b8bc7461c2a51a985f6d90a4f9",
+  "note": "Test metrics never used for selection or tuning; final/best/budget predeclared."
+}

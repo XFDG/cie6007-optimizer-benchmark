@@ -1,0 +1,103 @@
+\documentclass[10pt,a4paper,twocolumn]{article}
+\usepackage[margin=17mm,columnsep=6mm]{geometry}
+\usepackage{amsmath,amssymb,graphicx,booktabs,array,url,listings,xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption}
+\captionsetup{font=normalsize,labelfont=bf}
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0pt}
+\setlength{\textfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\floatsep}{6pt}
+\newcommand{\studentname}{Anonymous public version}
+\newcommand{\studentnumber}{Omitted for privacy}
+\ifdefined\publicversion\else\InputIfFileExists{identity.tex}{}{}\fi
+\newcommand{\pmv}[2]{\ensuremath{#1\,\pm\,#2}}
+\title{\vspace{-7mm}\Large\bfseries A Comparative Study of SGD, Adam, AdamW, and Muon Optimizers:\\Convergence, Generalization, and Computational Efficiency}
+\author{\normalsize\studentname\quad Student ID: \studentnumber\\\normalsize CIE6007 Machine Learning, 2026--27 Term 1}
+\date{}
+\begin{document}
+\maketitle
+\input{generated_abstract.tex}
+
+\section{Introduction}
+The optimizer controls how a neural network converts gradients into parameter updates. Momentum SGD accumulates a search direction, while Adam rescales coordinates using gradient moments \cite{momentum,adam}. AdamW separates parameter shrinkage from the gradient transformation \cite{adamw}. Muon instead approximately orthogonalizes matrix updates \cite{muon}. This offers a different way of allocating updates across directions, but introduces additional matrix multiplications and requires an auxiliary optimizer for other parameters.
+
+An optimizer can improve accuracy per training step without improving accuracy per second. A recent paired-budget study illustrates that these rankings can differ across architectures \cite{paired}; its transformer results do not establish a ranking for a small multilayer perceptron (MLP). We therefore ask four questions: which method converges fastest at equal steps (RQ1), generalizes best (RQ2), offers the strongest measured time--accuracy trade-off (RQ3), and is most sensitive to the tested learning rates (RQ4)? We compare actual training runs without assuming Muon must win. The contribution is a reproducible, budget-matched case study, rather than a new optimization algorithm.
+
+\section{Methods and Algorithms}
+Let $g_t=\nabla\ell_t(\theta_t)$ and let $\lambda$ apply only to weight matrices, with zero decay for biases. Our momentum SGD baseline uses
+\begin{align}
+ u_t&=g_t+\lambda\theta_t, & b_t&=0.9b_{t-1}+u_t,\nonumber\\
+ \theta_{t+1}&=\theta_t-\eta b_t.\label{eq:sgd}
+\end{align}
+Adam forms exponential moving averages $m_t$ and $v_t$ of $u_t$ and $u_t^2$, with $(\beta_1,\beta_2)=(0.9,0.999)$ and bias correction denoted by hats:
+\begin{equation}
+ \theta_{t+1}=\theta_t-\eta\frac{\hat m_t}{\sqrt{\hat v_t}+10^{-8}}.
+\end{equation}
+AdamW computes these moments from $g_t$ and applies
+\begin{equation}
+ \theta_{t+1}=(1-\eta\lambda)\theta_t
+ -\eta\frac{\hat m_t}{\sqrt{\hat v_t}+10^{-8}}.
+\end{equation}
+Thus Adam's coupled $L_2$ penalty changes its adaptive moments; AdamW's decay does not. The same numerical $\lambda=10^{-4}$ is a controlled configuration choice, not matched effective regularization.
+
+For Muon, we use unmodified \texttt{torch.optim.Muon} from PyTorch 2.11 \cite{pytorch}. It uses momentum $0.95$, Nesterov extrapolation, and five Newton--Schulz iterations. Given the normalized momentum-derived matrix $X$, each iteration computes
+\begin{equation}
+ A=XX^\top,\qquad X\leftarrow aX+(bA+cA^2)X,
+\end{equation}
+with $(a,b,c)=(3.4445,-4.775,2.0315)$. These iterations approximately reshape the singular values; five iterations do not guarantee exact orthogonality. The native implementation uses BF16 internally for this operation; model parameters and forward/backward computation remain FP32. We use \texttt{adjust\_lr\_fn='original'}, which gives unit shape scaling for our square hidden matrices.
+
+\paragraph{Parameter routing.}
+The MLP has dimensions $784\!\to\!256\!\to\!256\!\to\!256\!\to\!10$, ReLU after each hidden layer, and 335,114 parameters. Muon updates only the two $256\times256$ hidden-to-hidden matrices (131,072 parameters, 39.1\%). Input projection, classifier, and every bias use auxiliary AdamW with fixed learning rate $10^{-3}$ and the same decay policy. The comparison is therefore between practical optimizer configurations: the Muon treatment is a hybrid. Routing and auxiliary updates are included in all reported timing. SGD, Adam, and AdamW each update the whole model.
+
+\input{generated_accuracy_floats.tex}
+\section{Experimental Setup}
+\paragraph{Data and pairing.}
+Fashion-MNIST \cite{fashion} has 60,000 official training and 10,000 official test examples. We hold out 1,000 training examples per class for validation (split seed 2026), leaving 50,000 for training. Pixels are divided by 255; no statistics are fitted, and there is no augmentation or dropout. Batch size is 128, including the last partial batch: 391 updates per epoch. All configurations for a seed share identical initial weights and batch permutations. The test tensors are loaded only by a separate final-evaluation script, after tuning and all final training are frozen.
+
+\paragraph{Equal tuning budget.}
+Each optimizer receives three learning rates and ten epochs per candidate, using development seed 17. SGD tests $\{.01,.03,.1\}$; Adam and AdamW test $\{.0003,.001,.003\}$; Muon tests $\{.005,.02,.05\}$. We select the highest validation accuracy attained, breaking ties by lower validation loss then lower rate. Auxiliary Muon AdamW settings are fixed, so no extra search trials are granted. There is no learning-rate schedule. Selected configurations are independently rerun for 15 epochs (5,865 updates) with seeds 101, 202, and 303. Reported standard deviations use $n-1$ in the denominator. Three seeds quantify run variability only weakly and are not evidence of a universal ranking.
+
+\paragraph{Checkpoints and timing.}
+Primary test accuracy uses the validation-best checkpoint; final-epoch accuracy is also reported to preserve the equal-step comparison. A common 85\% validation threshold was specified before tuning. Threshold time is recorded at the first epoch-end observation, without interpolation; a missing crossing is censored, not zero.
+
+Experiments execute sequentially on one NVIDIA H200 (driver 580.105.08), Python 3.12.3, PyTorch 2.11.0+cu130, and CUDA 13.0. Twenty disposable training steps warm each configuration; model, optimizer, and RNG are then recreated. We synchronize CUDA around training and validation. Datasets are GPU-resident. Training time includes minibatch indexing, forward, backward, and all optimizer updates; data loading, warmup, extra train-set evaluation, and checkpoint I/O are excluded. No compilation, autotuning, AMP, or TF32 is used. GPU peak memory is process tensor allocation, including resident data, rather than total device use. Other GPUs retain keep-alive workloads; GPU 0 has no keep-alive competitor. Shared CPU resources and hardware scheduling remain possible noise sources.
+
+\paragraph{Common-time readout.}
+After the smoke test and before full-data training, a five-second cumulative \emph{training plus validation} budget was fixed. We select the validation-best completed epoch available by that budget from each trajectory. This is an epoch-boundary retrospective readout, not a separately interrupted end-to-end timed run. Unused time within the next epoch and excluded reporting overhead limit its interpretation as a strict wall-clock comparison.
+
+\input{generated_efficiency_floats.tex}
+\section{Results and Discussion}
+\input{generated_results.tex}
+
+\section{Conclusions}
+\input{generated_conclusion.tex}
+
+\paragraph{AI usage and reproducibility.}
+OpenAI Codex \cite{codex} substantially assisted protocol design, code generation, experiment execution, validation, plots, and drafting. Context7 and web/repository retrieval supported documentation checks. All numerical results come from the saved runs, not generated examples or borrowed measurements. Automated checks do not establish that the student has independently reviewed every claim. The repository includes configuration, source hashes, environment details, raw epoch CSVs, checkpoint evaluation hashes, and the development report. The student remains responsible for understanding and verifying the submission.
+
+\newpage
+{\normalsize\bibliographystyle{unsrt}\bibliography{references}}
+\clearpage
+\onecolumn
+\section*{Supplementary Pages: Core Code and Verification}
+The following excerpts are taken directly from the runnable source. They explain the optimizer partition, measurement boundary, and test isolation. Third-party optimizer internals are called unchanged through PyTorch. Full scripts and raw results accompany the repository. Each training seed resets model initialization and an independent CPU permutation generator; tests check exact repeatability within this environment, not across hardware or library releases.
+\lstset{language=Python,basicstyle=\ttfamily\fontsize{10}{11}\selectfont,
+ breaklines=true,columns=fullflexible,keepspaces=true,showstringspaces=false,
+ frame=single,rulecolor=\color{black!25},commentstyle=\color{black!65},
+ numbers=none,aboveskip=6pt,belowskip=6pt}
+\subsection*{S1. Parameter routing and optimizer construction}
+Biases receive zero decay. The input and classifier matrices belong to auxiliary AdamW. The two hidden matrices belong exclusively to Muon; explicit identity checks reject overlaps or omissions.
+\lstinputlisting{../src/optimizers.py}
+\clearpage
+\subsection*{S2. Paired initialization, warmup, and measured training}
+Warmup updates are discarded. After reseeding, a fresh model and optimizer start the actual run. Training and validation are synchronized separately. Additional train-set evaluation and checkpoint writes are outside the cumulative training-plus-validation clock.
+\lstinputlisting{generated_train_excerpt.py}
+\clearpage
+\subsection*{S3. Evaluation and test isolation}
+Evaluation uses inference mode and divides summed loss and correct predictions by the full sample count. No gradients are computed and no test metric is used in model selection. The final evaluator checks a frozen selection manifest, then reads train, validation, and official test splits for predeclared checkpoints.
+\lstinputlisting{../src/evaluate.py}
+\lstinputlisting{generated_eval_excerpt.py}
+\subsection*{S4. Acceptance evidence}
+\input{generated_acceptance.tex}
+\end{document}
