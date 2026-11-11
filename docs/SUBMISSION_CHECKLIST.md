@@ -12,7 +12,8 @@
 - [x] Local report contains supplied identity; anonymous public PDF excludes it.
 - [x] 13 tests pass; PDF structural and visual review complete.
 - [x] Shanghai four-GPU keep-alive restored.
-- [ ] User confirms public GitHub publication of the reviewed anonymous artifacts.
+- [x] User confirmed public GitHub publication of the reviewed anonymous artifacts.
+- [x] Published and verified: https://github.com/XFDG/cie6007-optimizer-benchmark (public, main).
 - [ ] Verify exact deadline in Blackboard.
 - [ ] Student reviews and submits **submission/report.pdf** to Blackboard.
 

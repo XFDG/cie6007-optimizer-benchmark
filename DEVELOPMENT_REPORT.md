@@ -56,4 +56,11 @@
 - Verified every recorded research-run core source hash against the original measurement commit `3a281c2`; later maintenance has not overwritten the measurement provenance.
 - All source, configuration, results, figures, bibliography, README, license and anonymous PDF prepared for release. Identified local PDF, identity file, venv, data, checkpoints, logs and backup ZIP are excluded from Git.
 - GPU keep-alive restoration verified with nvidia-smi: one restored process active on all four H200s.
-- Status: local deliverables complete; public GitHub release awaits the user's explicit confirmation. Blackboard submission and deadline verification remain the student's external actions.
+- Status: local deliverables complete; GitHub publication was subsequently authorized and completed (see release entry below). Blackboard submission and deadline verification remain the student's external actions.
+
+## Public GitHub release — 2026-11-11 10:53 CST
+- User explicitly confirmed public publication to XFDG. Rechecked authenticated account, clean local worktree and absence of an existing accessible target repository.
+- Repeated privacy checks over all 130 tracked files, text blobs in Git history, and extracted anonymous PDF text. No supplied name/student number, credential patterns, identified report, dataset, checkpoints, environments or logs were included.
+- Created and pushed https://github.com/XFDG/cie6007-optimizer-benchmark using the authenticated GitHub CLI (the connector lacks repository creation). Default branch: main; visibility: public, independently verified through the GitHub connector.
+- Verified remote submission directory contains only report_public.pdf. The identified submission/report.pdf and backup ZIP remain local.
+- Updated README and submission checklist to distinguish completed GitHub publication from pending Blackboard submission. Measurements and PDFs were unchanged.

@@ -99,4 +99,4 @@ OpenAI Codex substantially assisted experiment design, code, automated execution
 
 ## 中文说明
 
-主实验、调参和测试评估均已真实运行，数字可以追溯到 CSV。正式结论是：本配置中 Muon 混合方案平均准确率较高，但耗时也更高；固定计算时间口径下的优势不同。开发记录见 `DEVELOPMENT_REPORT.md`。本地实名报告与公开匿名报告分开，学号、数据集、虚拟环境和模型权重不进入公开仓库。GitHub 公开发布需用户检查并确认；Blackboard 提交需另外完成。
+主实验、调参和测试评估均已真实运行，数字可以追溯到 CSV。正式结论是：本配置中 Muon 混合方案平均准确率较高，但耗时也更高；固定计算时间口径下的优势不同。开发记录见 `DEVELOPMENT_REPORT.md`。本地实名报告与公开匿名报告分开，学号、数据集、虚拟环境和模型权重不进入公开仓库。GitHub 已经用户确认后公开发布至 [XFDG/cie6007-optimizer-benchmark](https://github.com/XFDG/cie6007-optimizer-benchmark)；Blackboard 提交仍需另外完成。
