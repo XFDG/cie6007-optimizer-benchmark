@@ -64,3 +64,10 @@
 - Created and pushed https://github.com/XFDG/cie6007-optimizer-benchmark using the authenticated GitHub CLI (the connector lacks repository creation). Default branch: main; visibility: public, independently verified through the GitHub connector.
 - Verified remote submission directory contains only report_public.pdf. The identified submission/report.pdf and backup ZIP remain local.
 - Updated README and submission checklist to distinguish completed GitHub publication from pending Blackboard submission. Measurements and PDFs were unchanged.
+
+## PDF repository links and authorized identified report — 2026-11-11 11:01 CST
+- Re-read all three pages of the official guidelines: a repository link is not explicitly mandated; supplementary core code and references/AI acknowledgement are mandatory. Adding the published repository improves access to reproducible artifacts and does not replace the code supplement.
+- Added a visible, clickable full GitHub URL on page 1 of both PDFs and a Code availability paragraph on page 4, including a clickable link to measured source commit 3a281c2. Verified PDF URI annotations and rendered layout.
+- Recompiled on the Shanghai GPU node using the persistent offline TeX environment. Both PDFs remain A4, four main pages plus three supplementary pages; structural audit passes with no overfull boxes or unresolved citations. Experimental results are unchanged.
+- The user explicitly instructed publishing the local identified report as well. This supersedes the earlier restriction against uploading that PDF: submission/report.pdf (including supplied name and student number) is now approved for this public repository, alongside report_public.pdf. paper/identity.tex, data, environments, checkpoints and backup ZIP remain excluded.
+- Updated the README and submission checklist to reflect the two published versions. Blackboard submission remains a separate, pending action.

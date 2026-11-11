@@ -8,7 +8,6 @@ checkpoints/
 *.pth
 paper/build/
 paper/identity.tex
-submission/report.pdf
 submission/*.zip
 *.aux
 *.log

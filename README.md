@@ -2,7 +2,7 @@
 
 A reproducible comparison of momentum SGD, Adam, AdamW, and **Muon + auxiliary AdamW** on Fashion-MNIST. This is a small-model case study, not a claim that one optimizer is universally best.
 
-[Paper preview (anonymous PDF)](submission/report_public.pdf) · [Development report](DEVELOPMENT_REPORT.md) · [Raw epoch data](results/metrics.csv) · [Summary](results/summary.csv)
+[Submission report (identified PDF)](submission/report.pdf) · [Version without personal details](submission/report_public.pdf) · [Development report](DEVELOPMENT_REPORT.md) · [Raw epoch data](results/metrics.csv) · [Summary](results/summary.csv)
 
 ## Measured results
 
@@ -65,7 +65,7 @@ The exact local environment reuses existing volume-resident CUDA packages throug
 
 ### Paper build
 
-Install Tectonic 0.15.0, then run `bash scripts/build_paper.sh`. It generates the local `submission/report.pdf` and anonymous `submission/report_public.pdf`. An offline TeX bundle can be passed through `TECTONIC_BUNDLE=/path/to/bundle.zip`; `TEX_ENGINE=/path/to/tectonic` selects the executable. All TeX temporary files stay in `paper/build`.
+Install Tectonic 0.15.0, then run `bash scripts/build_paper.sh`. It generates `submission/report.pdf` with the supplied author identity and `submission/report_public.pdf` without those personal details. Both PDFs include a clickable repository link and are published here with the author's explicit authorization. An offline TeX bundle can be passed through `TECTONIC_BUNDLE=/path/to/bundle.zip`; `TEX_ENGINE=/path/to/tectonic` selects the executable. All TeX temporary files stay in `paper/build`.
 
 For the identified local submission, create **ignored** `paper/identity.tex`:
 
@@ -74,7 +74,7 @@ For the identified local submission, create **ignored** `paper/identity.tex`:
 \renewcommand{\studentnumber}{Your Student Number}
 ```
 
-The public wrapper bypasses that file. Never commit the identified PDF or identity file. Only the local identified `report.pdf` is intended for Blackboard. The course deadline must be checked in Blackboard; this project does not submit to Blackboard automatically.
+The redacted wrapper bypasses that file. Keep `paper/identity.tex` untracked. The author explicitly authorized publishing the identified `report.pdf`, including their name and student number, on 11 November 2026; it is now tracked alongside the redacted version. Submit the identified `report.pdf` to Blackboard. The course deadline must be checked in Blackboard; this project does not submit to Blackboard automatically.
 
 ## Files and provenance
 
@@ -87,7 +87,7 @@ The public wrapper bypasses that file. Never commit the identified PDF or identi
 - `results/run_summary.csv`, `summary.csv`, `lr_sensitivity.csv`, `paired_differences.csv`: derived metrics.
 - `results/figures/`: PNG and vector PDF figures; copied to `paper/figures` by plotting.
 - `results/acceptance.json`: data audit; `tests/`: optimizer, repeatability, routing and leakage tests.
-- `checkpoints/`, `data/`, `.venv/`, local logs and identified submission: deliberately ignored.
+- `checkpoints/`, `data/`, `.venv/`, local logs, `paper/identity.tex` and backup ZIP: deliberately ignored. Both submission PDF versions are tracked with author authorization.
 
 Raw model checkpoints are retained locally, not uploaded; retraining regenerates them. `validate_results.py` checks their hashes, so it should be run after a reproduction rather than against a checkpoint-free clone.
 
@@ -99,4 +99,4 @@ OpenAI Codex substantially assisted experiment design, code, automated execution
 
 ## 中文说明
 
-主实验、调参和测试评估均已真实运行，数字可以追溯到 CSV。正式结论是：本配置中 Muon 混合方案平均准确率较高，但耗时也更高；固定计算时间口径下的优势不同。开发记录见 `DEVELOPMENT_REPORT.md`。本地实名报告与公开匿名报告分开，学号、数据集、虚拟环境和模型权重不进入公开仓库。GitHub 已经用户确认后公开发布至 [XFDG/cie6007-optimizer-benchmark](https://github.com/XFDG/cie6007-optimizer-benchmark)；Blackboard 提交仍需另外完成。
+主实验、调参和测试评估均已真实运行，数字可以追溯到 CSV。正式结论是：本配置中 Muon 混合方案平均准确率较高，但耗时也更高；固定计算时间口径下的优势不同。开发记录见 `DEVELOPMENT_REPORT.md`。按作者于 2026 年 11 月 11 日的明确要求，仓库同时提供含姓名学号的实名报告 `report.pdf` 和去除个人信息的 `report_public.pdf`。数据集、虚拟环境、模型权重和身份配置文件不上传。GitHub 已经用户确认后公开发布至 [XFDG/cie6007-optimizer-benchmark](https://github.com/XFDG/cie6007-optimizer-benchmark)；Blackboard 提交仍需另外完成。

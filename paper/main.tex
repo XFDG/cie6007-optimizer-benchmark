@@ -13,7 +13,7 @@
 \ifdefined\publicversion\else\InputIfFileExists{identity.tex}{}{}\fi
 \newcommand{\pmv}[2]{\ensuremath{#1\,\pm\,#2}}
 \title{\vspace{-7mm}\Large\bfseries A Comparative Study of SGD, Adam, AdamW, and Muon Optimizers:\\Convergence, Generalization, and Computational Efficiency}
-\author{\normalsize\studentname\quad Student ID: \studentnumber\\\normalsize CIE6007 Machine Learning, 2026--27 Term 1}
+\author{\normalsize\studentname\quad Student ID: \studentnumber\\\normalsize CIE6007 Machine Learning, 2026--27 Term 1\\\normalsize Code and results: \url{https://github.com/XFDG/cie6007-optimizer-benchmark}}
 \date{}
 \begin{document}
 \maketitle
@@ -72,6 +72,9 @@ After the smoke test and before full-data training, a five-second cumulative \em
 
 \section{Conclusions}
 \input{generated_conclusion.tex}
+
+\paragraph{Code availability.}
+Code, configurations, raw measurements, and reproduction instructions are available in the \href{https://github.com/XFDG/cie6007-optimizer-benchmark}{GitHub repository linked on the first page}. The measured training implementation is archived at \href{https://github.com/XFDG/cie6007-optimizer-benchmark/tree/3a281c2}{commit \texttt{3a281c2}}; individual run records include source hashes.
 
 \paragraph{AI usage and reproducibility.}
 OpenAI Codex \cite{codex} substantially assisted protocol design, code generation, experiment execution, validation, plots, and drafting. Context7 and web/repository retrieval supported documentation checks. All numerical results come from the saved runs, not generated examples or borrowed measurements. Automated checks do not establish that the student has independently reviewed every claim. The repository includes configuration, source hashes, environment details, raw epoch CSVs, checkpoint evaluation hashes, and the development report. The student remains responsible for understanding and verifying the submission.

@@ -9,7 +9,9 @@
 - [x] Training/test isolation, paired initialization, raw data and summary audited.
 - [x] Timing synchronization/warmup and accounted-time budget caveats disclosed.
 - [x] AI contributions and source references acknowledged.
-- [x] Local report contains supplied identity; anonymous public PDF excludes it.
+- [x] Identified report contains supplied identity; redacted report excludes it.
+- [x] Both PDFs contain a clickable repository URL on page 1 and the measured source commit on page 4.
+- [x] Author subsequently explicitly requested publishing the identified report, including name and student number.
 - [x] 13 tests pass; PDF structural and visual review complete.
 - [x] Shanghai four-GPU keep-alive restored.
 - [x] User confirmed public GitHub publication of the reviewed anonymous artifacts.
@@ -17,4 +19,4 @@
 - [ ] Verify exact deadline in Blackboard.
 - [ ] Student reviews and submits **submission/report.pdf** to Blackboard.
 
-GitHub publication and Blackboard submission are independent actions. The public PDF is `report_public.pdf`; Blackboard should receive the local identified **report.pdf**. Do not upload the original course guidelines, student identity file, identified PDF, dataset, environment, or checkpoints to the public repository.
+GitHub publication and Blackboard submission are independent actions. Both `report.pdf` (identified, explicitly authorized for publication) and `report_public.pdf` (personal details removed) are published. Blackboard should receive the identified **report.pdf**. Keep the original course guidelines, identity configuration file, dataset, environment, checkpoints and backup ZIP outside the public repository.
